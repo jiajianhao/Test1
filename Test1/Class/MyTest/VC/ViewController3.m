@@ -25,12 +25,18 @@
 @end
 
 @implementation ViewController3
-#pragma mark
+#pragma mark - Life Circle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setupNavigation];
+    [self mineDataInit];
+  }
+#pragma mark - Initial DATA && UI
+-(void)mineDataInit{
     [self.view setBackgroundColor:[UIColor whiteColor]];
     strName=@"tupian2.png";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"首页" style:UIBarButtonItemStylePlain target:self action:@selector(backBtnOnCLick:)];
     image1= [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _WIDTH, _HEIGHT-64-44)];
     [image1 setImage:[UIImage imageNamed:@"tupian.png"]];
     [image1 setBackgroundColor:[UIColor clearColor]];
@@ -44,13 +50,25 @@
     [buttonAdd setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [buttonAdd addTarget:self action:@selector(buttonOnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonAdd];
-}
-#pragma mark -Button Event
--(void)buttonOnClick{
 
+}
+- (void)setupNavigation {
+    self.navigationController.navigationBarHidden=NO;
+    self.navigationController.navigationBar.barTintColor = RGBA(180, 212,208, 1.0);
+    self.navigationController.navigationBar.translucent = NO;
+    NSDictionary * dict = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.titleTextAttributes = dict;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
+#pragma mark - Button Event
+-(void)backBtnOnCLick:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)buttonOnClick{
     [self mineActionSheet];
     [self showMineActionSheet];
-
 }
 
 -(void)saveButtonOnClick{
@@ -73,7 +91,7 @@
 -(void)cancelOnClick:(id)sender{
     [self hideMineActionSheet];
 }
-#pragma mark -
+#pragma mark - Private Methods
 - (void)loadImageFinished:(UIImage *)image
 {
     NSMutableArray *imageIds = [NSMutableArray array];

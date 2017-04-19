@@ -32,63 +32,38 @@
 @end
 
 @implementation ViewController
-
+#pragma mark
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent=NO;
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    self.title=@"mine";
-    dataArray =[[NSMutableArray alloc]initWithObjects:@"scroll",@"table",@"save photo",nil];
+    [self setupNavigation];
+    [self mineDataInit];
     [self mineTableView];
-//    heightForDes=30;
-//    
-//    _label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, _WIDTH, 20)];
-//    _label1.text=@"1121213123123213213";
-//    _label1.textColor=[UIColor orangeColor];
-//    _label1.backgroundColor=[UIColor whiteColor];
-//    [self.view addSubview:_label1];
-//    
-//    UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
-//    longPressGr.minimumPressDuration = 0.5;
-//    [_label1 addGestureRecognizer:longPressGr];
     
-    // Do any additional setup after loading the view, typically from a nib.
-//    self.contentTextView = [[UITextView alloc]initWithFrame:CGRectMake(15,  50, _WIDTH-30, 300)];
-//    self.contentTextView .layer.cornerRadius = 4;
-//    self.contentTextView .layer.masksToBounds = YES;
-//    self.contentTextView .delegate = self;
-//    self.contentTextView .layer.borderWidth = 1;
-//    self.contentTextView .font = [UIFont systemFontOfSize:15];
-//    self.contentTextView .layer.borderColor = [[[UIColor lightGrayColor] colorWithAlphaComponent:0.4] CGColor];
-//    //加下面一句话的目的是，是为了调整光标的位置，让光标出现在UITextView的正中间
-////    self.contentTextView.textContainerInset = UIEdgeInsetsMake(10,0, 0, 0);
-//    [self.view addSubview:self.contentTextView ];
-//    
-//    
-//    NSString *stringPinyin = [self transformToPinyin:@"呵呵哒"];
-//    if (stringPinyin) {
-//        NSLog(@"stringPinyin:%@",stringPinyin);
-//    }
-//    else{
-//        NSLog(@"stringPinyin:%@",stringPinyin);
-//    }
+ 
+}
+
+#pragma mark - Initial DATA && UI
+-(void)mineDataInit{
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    dataArray =[[NSMutableArray alloc]initWithObjects:@"scroll",@"table",@"save photo",nil];
+    self.navigationItem.title = @"Test1";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"繁体" style:UIBarButtonItemStylePlain target:self action:@selector(ChangeChineseOnClick:)];
     
-//    CNContactStore *store = [[CNContactStore alloc] init];
-//    
-//    [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//        if (granted) {
-//            //已授权
-//            NSLog(@"授权");
-//        }
-//        else{
-//            NSLog(@"授权失败");
-//         }
-//        
-//    }];
-//    
-//    [_USERDEFAULT setObject:@"123456" forKey:@"imimimimim"];
-//    [_USERDEFAULT synchronize];
-//    NSLog(@"%@",[_USERDEFAULT ]);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"帮助" style:UIBarButtonItemStylePlain target:self action:@selector(helpButtonOnClick:)];
+
+}
+- (void)setupNavigation {
+    //    self.navigationController.navigationBar.hidden=NO;
+    //    [self.navigationController.navigationBar setHidden:NO];
+    self.navigationController.navigationBarHidden=NO;
+    self.navigationController.navigationBar.barTintColor = RGBA(180, 212,208, 1.0);
+    self.navigationController.navigationBar.translucent = NO;
+    NSDictionary * dict = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.titleTextAttributes = dict;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 #pragma mark - 长按弹出菜单
 -(void)longPressToDo:(UILongPressGestureRecognizer *)gesture{
@@ -412,7 +387,13 @@
     }
 
 }
-
+#pragma mark Button Event
+-(void)ChangeChineseOnClick:(id)sender{
+    
+}
+-(void)helpButtonOnClick:(id)sender{
+    
+}
 
 #pragma mark - Setter / Getter
 -(UITableView *)mineTableView{
